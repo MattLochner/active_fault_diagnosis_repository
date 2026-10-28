@@ -2,13 +2,14 @@
 
 This repository contains the code used in Matthew Lochner's masters project: *Active fault detection on a high-pressure leaching process simulation*.
 
-The repository is split into 2 folders:
+The repository is split into 3 folders:
 
 - **`scripts`** — contains the script files that are run to generate results related to the 3-tank problem and high-pressure leach case studies.
   Functions are imported from the source code.
   Functions related to the input design step are included in the scripts folder as they must be customized to each application, as
   control setpoints need to be manipulated inside the function.
 - **`src`** (source code) — reusable functions are defined in the source code and exported through `full_simulation.jl`.
+- **`results`** (source code) — the results for the MAPE analysis of state estimation performance and Monte Carlo analysis of input design solve time are reported in this   folder.
 
 ---
 
@@ -77,7 +78,7 @@ parameters specified as ARFs are not included in `BMR_kf_params` as they are est
 Initial conditions obtained by running model to steady state.
 
 ### `BMR_observability`
-Contains the script to run the observability analysis.
+Contains the script to run the observability analysis on the BMR model.
 
 ### `BMR_run_ODE.jl`
 Runs the high-pressure leach ODEs.
@@ -118,7 +119,7 @@ for normal operating conditions and both fault modes.
    the parameters modelled as autoregressive functions and fault mode magnitudes are modelled as additional states which are estimated by the EKF.
 
 ### `BMR_kf_generate_measurements`
-Contains 2 functions that generate the measurement predictions used in the EKF.
+Contains 2 functions that generate the measurement predictions used in the EKF and Input Design Functions.
 `if` statements are used so that the same function can be used for all system modes.
 
 - `BMR_kf_measurement_prediction(X, data, t)`
