@@ -1,0 +1,22 @@
+There needs to be two different BMR models for the ground truth process and the Kalman filter. 
+
+The difference is as follows:
+
+In ground truth process the variables that introduce disturbances into the model are treated as parameters defined by an autoregressive function. The autoregressive function generates a vector of results that are interpreted using linear interpolation.
+The measurement function must be the measurement function for this model. i.e. the ODEs in calculate_dynamic_behaviour must match. 
+The parameters will also have to be separate as different parameters will have to be sent to the two models. (i.e. some parameters in ground truth will be states in model odes)
+
+- ground truth ODEs
+- ground truth perfect measurement (BMR_gt_measurement_prediction(X, data, t))
+- ground truth measurement with noise sampled from random distribution (function BMR_gt_generate_measurements(X, data, t, vkstd))
+
+In the model for the kalman filter, these variables are treated as state variables which must be estimated by the kalman filter. I assume they are just additional state variables with dx_dt = 0.0. 
+The measurement prediction must use predictions from these estimated states to generated predicted measurements.
+
+- model ODEs
+- model measurement prediction
+
+Therefor, two different ODE_functions and measurement_functions are required. 
+
+
+
